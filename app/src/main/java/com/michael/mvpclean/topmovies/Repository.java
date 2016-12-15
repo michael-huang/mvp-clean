@@ -2,7 +2,7 @@ package com.michael.mvpclean.topmovies;
 
 import com.michael.mvpclean.api.model.Result;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by huangyanzhen on 2016/12/14.
