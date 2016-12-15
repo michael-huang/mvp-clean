@@ -2,8 +2,16 @@ package com.michael.mvpclean;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
+
+import com.michael.mvpclean.topmovies.MovieListAdapter;
+import com.michael.mvpclean.topmovies.ViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -11,6 +19,9 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+
+    private MovieListAdapter movieListAdapter;
+    private List<ViewModel> resultList = new ArrayList<>();
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -23,5 +34,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        setupRecyclerView();
+    }
+
+    private void setupRecyclerView() {
+        movieListAdapter = new MovieListAdapter(resultList);
+        recyclerView.setAdapter(movieListAdapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
