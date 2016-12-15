@@ -1,6 +1,7 @@
 package com.michael.mvpclean.topmovies;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TopMoviesActivity extends AppCompatActivity {
+public class TopMoviesActivity extends AppCompatActivity implements TopMoviesMVP.View{
 
     private static final String TAG = TopMoviesActivity.class.getSimpleName();
 
@@ -43,5 +44,16 @@ public class TopMoviesActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void updateData(ViewModel viewModel) {
+        resultList.add(viewModel);
+        movieListAdapter.notifyItemInserted(resultList.size() - 1);
+    }
+
+    @Override
+    public void showSnackbar(String msg) {
+        Snackbar.make(rootView, msg, Snackbar.LENGTH_SHORT).show();
     }
 }
