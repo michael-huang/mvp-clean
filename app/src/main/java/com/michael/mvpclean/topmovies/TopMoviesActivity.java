@@ -13,6 +13,8 @@ import com.michael.mvpclean.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -29,6 +31,9 @@ public class TopMoviesActivity extends AppCompatActivity implements TopMoviesMVP
     @BindView(R.id.ll_root_view)
     LinearLayout rootView;
 
+    @Inject
+    TopMoviesMVP.Presenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +41,21 @@ public class TopMoviesActivity extends AppCompatActivity implements TopMoviesMVP
         ButterKnife.bind(this);
 
         setupRecyclerView();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        presenter.setView(this);
+        presenter.loadData();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        presenter.rxUnsubscribe();
+        resultList.clear();
+        movieListAdapter.notifyDataSetChanged();
     }
 
     private void setupRecyclerView() {
