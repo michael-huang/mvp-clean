@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
 
+import com.michael.mvpclean.MyApplication;
 import com.michael.mvpclean.R;
 
 import java.util.ArrayList;
@@ -38,6 +39,9 @@ public class TopMoviesActivity extends AppCompatActivity implements TopMoviesMVP
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ((MyApplication) getApplication()).getComponent().inject(this);
+
         ButterKnife.bind(this);
 
         setupRecyclerView();
