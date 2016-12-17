@@ -65,6 +65,7 @@ public class TopMoviesActivity extends AppCompatActivity implements TopMoviesMVP
     private void setupRecyclerView() {
         movieListAdapter = new MovieListAdapter(resultList);
         recyclerView.setAdapter(movieListAdapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
